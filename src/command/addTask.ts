@@ -1,15 +1,13 @@
 import { Command } from "commander";
 import fs from "fs";
-import path from "path";
-
-const tasksFilePath = path.join(__dirname, "../tasks.json");
+import { tasksFilePath } from "../utils/path";
 
 if (!fs.existsSync(tasksFilePath)) {
   fs.writeFileSync(tasksFilePath, JSON.stringify([], null, 2));
 }
 
 export const addTask = new Command()
-  .command("add <task>") // ⬅️ Ensures task is required
+  .command("add <task>")
   .description("Add a new task to the list")
   .action((task) => {
     const tasks = JSON.parse(fs.readFileSync(tasksFilePath, "utf-8"));
