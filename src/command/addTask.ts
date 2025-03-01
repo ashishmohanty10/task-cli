@@ -8,10 +8,9 @@ if (!fs.existsSync(tasksFilePath)) {
   fs.writeFileSync(tasksFilePath, JSON.stringify([], null, 2));
 }
 
-export const add = new Command()
-  .alias("add")
+export const addTask = new Command()
+  .command("add <task>") // ⬅️ Ensures task is required
   .description("Add a new task to the list")
-  .argument("<task>", "Task to add")
   .action((task) => {
     const tasks = JSON.parse(fs.readFileSync(tasksFilePath, "utf-8"));
 
