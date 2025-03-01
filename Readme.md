@@ -56,6 +56,14 @@ npm run start list
 
 <img src="./public/list.png" />
 
+### Check Status
+
+```sh
+npm run start list --status false
+```
+
+<img src="./public/status.png"/>
+
 ## Features
 
 - Add tasks

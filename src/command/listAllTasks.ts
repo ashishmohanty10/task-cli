@@ -5,8 +5,9 @@ import { tasksFilePath } from "../utils/path";
 
 export const listTasks = new Command()
   .command("list")
-  .description("Lists all tasks")
-  .action(() => {
+  .description("Lists all tasks, with an optional filter by status")
+  .option("-s, --status <status>", "Filter tasks by status (done, pending)")
+  .action((options) => {
     try {
       const tasks = JSON.parse(fs.readFileSync(tasksFilePath, "utf-8"));
 
@@ -15,12 +16,39 @@ export const listTasks = new Command()
         return;
       }
 
+      let filteredTasks = tasks;
+
+      if (options.status) {
+        const statusFilter = options.status.toLowerCase();
+        if (statusFilter === "done") {
+          filteredTasks = tasks.filter(
+            (task: { completed: any }) => task.completed
+          );
+        } else if (statusFilter === "pending") {
+          filteredTasks = tasks.filter(
+            (task: { completed: any }) => !task.completed
+          );
+        } else {
+          console.log(
+            chalk.bgRed.white("❌ Invalid status! Use 'done' or 'pending'.")
+          );
+          return;
+        }
+      }
+
+      if (filteredTasks.length === 0) {
+        console.log(
+          chalk.yellowBright(`📭 No tasks found for status: ${options.status}`)
+        );
+        return;
+      }
+
       console.log(chalk.blueBright("\n📋 Your Tasks:\n"));
 
-      tasks.forEach(
+      filteredTasks.forEach(
         (task: { id: number; task: string; completed: boolean }) => {
           const status = task.completed
-            ? chalk.green.bold("✔ Completed")
+            ? chalk.green.bold("✔ Done")
             : chalk.red.bold("⏲ Pending");
 
           console.log(`${chalk.yellow("🆔 ID:")} ${chalk.cyan(task.id)}`);
@@ -31,16 +59,9 @@ export const listTasks = new Command()
         }
       );
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(
-          chalk.bgRed.white("❌ Error reading tasks:"),
-          chalk.redBright(error.message)
-        );
-      } else {
-        console.error(
-          chalk.bgRed.white("❌ Error reading tasks:"),
-          chalk.redBright(error)
-        );
-      }
+      console.error(
+        chalk.bgRed.white("❌ Error reading tasks:"),
+        chalk.redBright(error instanceof Error ? error.message : error)
+      );
     }
   });
