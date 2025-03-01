@@ -21,5 +21,5 @@ export const addTask = new Command()
     tasks.push(newTask);
     fs.writeFileSync(tasksFilePath, JSON.stringify(tasks, null, 2));
 
-    console.log(`Task added: "${task}"`);
+    console.log(`✅ Task added: "${task}"`);
   });

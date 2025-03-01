@@ -19,11 +19,15 @@ npm run build
 node dist/index.js add "Your Task Here"
 ```
 
+<img src="./public/add.png" />
+
 ### Update a Task
 
 ```sh
 node dist/index.js update -n "testing the update feat" -c true 1740861440788
 ```
+
+<img src="./public/update.png" />
 
 ### Remove a Task
 
@@ -31,11 +35,19 @@ node dist/index.js update -n "testing the update feat" -c true 1740861440788
 node dist/index.js remove <task_id>
 ```
 
+<img src="./public/remove.png" />
+
+### ⚠️ If no task Found
+
+<img src="./public/notFound.png" />
+
 ### List All Tasks
 
 ```sh
 node dist/index.js list
 ```
+
+<img src="./public/list.png" />
 
 ## Features
 
