@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import fs from "fs";
+import chalk from "chalk";
 import { tasksFilePath } from "../utils/path";
 
 if (!fs.existsSync(tasksFilePath)) {
@@ -8,7 +9,7 @@ if (!fs.existsSync(tasksFilePath)) {
 
 export const addTask = new Command()
   .command("add <task>")
-  .description("Add a new task to the list")
+  .description(chalk.blue("Add a new task to the list"))
   .action((task) => {
     const tasks = JSON.parse(fs.readFileSync(tasksFilePath, "utf-8"));
 
@@ -21,5 +22,5 @@ export const addTask = new Command()
     tasks.push(newTask);
     fs.writeFileSync(tasksFilePath, JSON.stringify(tasks, null, 2));
 
-    console.log(`✅ Task added: "${task}"`);
+    console.log(chalk.greenBright(`✅ Task added: ${chalk.yellow.bold(task)}`));
   });

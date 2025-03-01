@@ -1,5 +1,6 @@
 # CLI Task Manager
 
+<img src="./public/hero.png"/>
 A simple CLI-based task manager built using Node.js and Commander.js. It allows users to add, update, remove, and track tasks using a JSON file.
 
 ## Installation
@@ -13,10 +14,16 @@ npm run build
 
 ## Usage
 
+```sh
+    npm run start
+```
+
+<img src="./public/start.png"/>
+
 ### Add a Task
 
 ```sh
-node dist/index.js add "Your Task Here"
+npm run start add "Your Task Here"
 ```
 
 <img src="./public/add.png" />
@@ -24,7 +31,7 @@ node dist/index.js add "Your Task Here"
 ### Update a Task
 
 ```sh
-node dist/index.js update -n "testing the update feat" -c true 1740861440788
+npm run start -- update -n "testing the update feat" -c true 1740868314605
 ```
 
 <img src="./public/update.png" />
@@ -32,7 +39,7 @@ node dist/index.js update -n "testing the update feat" -c true 1740861440788
 ### Remove a Task
 
 ```sh
-node dist/index.js remove <task_id>
+npm run start remove <task_id>
 ```
 
 <img src="./public/remove.png" />
@@ -44,7 +51,7 @@ node dist/index.js remove <task_id>
 ### List All Tasks
 
 ```sh
-node dist/index.js list
+npm run start list
 ```
 
 <img src="./public/list.png" />

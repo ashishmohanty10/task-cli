@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import fs from "fs";
 import { tasksFilePath } from "../utils/path";
+import chalk from "chalk";
 
 export const updateTask = new Command()
   .command("update <id>")
@@ -16,7 +17,7 @@ export const updateTask = new Command()
     );
 
     if (taskIndex === -1) {
-      console.log(`❌ Task with ID ${id} not found.`);
+      console.log(chalk.redBright.bold(`❌ Task with ID ${id} not found.`));
       return;
     }
 
@@ -24,16 +25,22 @@ export const updateTask = new Command()
 
     if (options.name) {
       tasks[taskIndex].task = options.name;
-      console.log(`✅ Task with ID ${id} updated to: "${options.name}".`);
+      console.log(
+        chalk.greenBright(
+          `✅ Task with ID ${id} updated to: "${options.name}".`
+        )
+      );
       updated = true;
     }
 
     if (options.completed !== undefined) {
       tasks[taskIndex].completed = !tasks[taskIndex].completed;
       console.log(
-        `✅ Task with ID ${id} marked as ${
-          tasks[taskIndex].completed ? "completed" : "not completed"
-        }.`
+        chalk.greenBright(
+          `✅ Task with ID ${id} marked as ${
+            tasks[taskIndex].completed ? "completed" : "not completed"
+          }.`
+        )
       );
       updated = true;
     }

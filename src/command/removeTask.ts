@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import fs from "fs";
 import { tasksFilePath } from "../utils/path";
+import chalk from "chalk";
 
 export const removeTask = new Command()
   .command("remove <id>")
@@ -13,11 +14,13 @@ export const removeTask = new Command()
     );
 
     if (tasks.length === filteredTasks.length) {
-      console.log(`❌ Task with ID ${id} not found.`);
+      console.log(chalk.redBright(`❌ Task with ID ${id} not found.`));
       return;
     }
 
     fs.writeFileSync(tasksFilePath, JSON.stringify(filteredTasks, null, 2));
 
-    console.log(`✅ Task with ID ${id} removed successfully.`);
+    console.log(
+      chalk.greenBright(`✅ Task with ID ${id} removed successfully.`)
+    );
   });
